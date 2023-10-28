@@ -1,3 +1,4 @@
+import ButtonDark from "@/components/ui/DarMode/buttonDark"
 import Head from "next/head"
 import styled from "styled-components"
 import tw from "twin.macro"
@@ -12,6 +13,8 @@ export default function Home() {
         <StyledButton>In Style</StyledButton>
         <br />
         <TailwindButton>Styled with tailwind</TailwindButton>
+        <br />
+        <ButtonDark />
       </main>
     </>
   )
