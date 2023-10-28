@@ -16,10 +16,10 @@ export default function LoginComponent() {
         <Main>
           <Article>
             <Image
-              src="/img/banner.jpg"
+              src="/img/banner.jpeg"
               width={500}
-              height={500}
-              className="w-full h-full"
+              height={700}
+              className="w-full h-96 md:h-full"
               alt="Image-sidebar"
             />
             <ContentBanner>
@@ -101,8 +101,8 @@ const BannerFooterText = tw.span`sm:text-lg`
 const BannerFooterLink = tw.a`w-32 bg-blue-button py-2 px-4 rounded-xl flex justify-center hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800`
 const ContentLogo = tw.div`w-full flex justify-center flex-wrap p-4 lg:p-16`
 const TextLogo = tw.h2`w-full text-center lg:text-3xl`
-const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center`
+const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
 const Label = tw.label`text-sm lg:text-lg`
-const ContentInput = tw.div`flex items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-4`
+const ContentInput = tw.div`flex items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-4 border dark:border-none border-gray-300`
 const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
 const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`
