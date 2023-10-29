@@ -58,7 +58,7 @@ export default function LoginComponent() {
               }}
             >
               <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-                <Label className="">Usuario</Label>
+                <Label>Usuario</Label>
                 <ContentInput>
                   <BiSolidUser className="text-xl mr-2" />
                   <Input
@@ -103,6 +103,6 @@ const ContentLogo = tw.div`w-full flex justify-center flex-wrap p-4 lg:p-16`
 const TextLogo = tw.h2`w-full text-center lg:text-3xl`
 const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
 const Label = tw.label`text-sm lg:text-lg`
-const ContentInput = tw.div`flex items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-4 border dark:border-none border-gray-300`
-const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
+export const ContentInput = tw.div`flex items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`
+export const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
 const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`

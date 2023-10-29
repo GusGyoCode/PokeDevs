@@ -14,6 +14,9 @@ const config: Config = {
           button: "#0072FF",
         },
       },
+      boxShadow: {
+        "3xl": "0 25px 35px -12px rgb(0 0 0 / 0.08)",
+      },
     },
   },
   plugins: [],
