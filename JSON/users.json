@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "name": "Gustavo",
+      "lastName": "Lucena",
+      "email": "guspibe15@gmail.com",
+      "password": "gustavo123"
+    },
+    {
+      "name": "Pepito",
+      "lastName": "Martinez",
+      "email": "ejemplo1@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "name": "Pablo",
+      "lastName": "Perez",
+      "email": "ejemplo2@gmail.com",
+      "password": "12345678"
+    },
+    {
+      "name": "Julio",
+      "lastName": "Juanez",
+      "email": "ejemplo3@gmail.com",
+      "password": "12345678"
+    }
+  ]
+}
