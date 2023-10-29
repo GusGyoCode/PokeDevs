@@ -2,7 +2,7 @@ import tw from "twin.macro"
 import Image from "next/image"
 
 const Title = tw.div`w-full justify-between items-center flex`
-const Weight = tw.div`bg-purple-800 text-white rounded-full px-4 py-1.5 font-semibold`
+const Weight = tw.div`bg-purple-800 text-white rounded-full px-4 py-1.5 font-semibold text-sm`
 const Name = tw.h3`font-bold text-xl text-orange-600`
 
 export default function Card() {
@@ -16,7 +16,7 @@ export default function Card() {
         className="w-32 h-32 mx-auto"
       />
       <Title>
-        <span className="text-green-500 ">28/10/2023</span>
+        <span className="text-green-500 text-sm">28/10/2023</span>
         <Weight>Peso: 56KG</Weight>
       </Title>
       <Name>Pokemon nombre</Name>
