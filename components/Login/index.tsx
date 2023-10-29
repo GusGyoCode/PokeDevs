@@ -1,11 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
-import { BiSolidUser } from "react-icons/bi"
-import { FaLock } from "react-icons/fa"
-import { AiFillEye } from "react-icons/ai"
 import Head from "next/head"
 import tw from "twin.macro"
 import styled from "styled-components"
+import FormLogin from "./component/Form"
 
 export default function LoginComponent() {
   return (
@@ -52,37 +50,8 @@ export default function LoginComponent() {
                 alt="Logo"
               />
               <TextLogo>Conectate mas...!!</TextLogo>
+              <FormLogin />
             </ContentLogo>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault()
-              }}
-            >
-              <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-                <Label>Usuario</Label>
-                <ContentInput>
-                  <BiSolidUser className="text-xl mr-2" />
-                  <Input
-                    type="text"
-                    placeholder="Usuario@ejemplo.com"
-                    name="email"
-                  />
-                </ContentInput>
-              </div>
-              <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-                <Label>Contraseña</Label>
-                <ContentInput>
-                  <FaLock className="text-xl mr-2" />
-                  <Input
-                    type="password"
-                    placeholder="**********"
-                    name="password"
-                  />
-                  <AiFillEye className="text-xl ml-2 cursor-pointer" />
-                </ContentInput>
-              </div>
-              <ButtonForm>Iniciar Sesion</ButtonForm>
-            </Form>
           </Article>
         </Main>
       </Content>
@@ -109,17 +78,3 @@ const BannerFooterText = tw.span`sm:text-lg`
 const BannerFooterLink = tw.a`w-32 bg-blue-button py-2 px-4 rounded-xl flex justify-center hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800`
 const ContentLogo = tw.div`w-full flex justify-center flex-wrap p-4 lg:p-16`
 const TextLogo = tw.h2`w-full text-center lg:text-3xl`
-const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
-const Label = tw.label`text-sm lg:text-lg`
-export const ContentInput = styled.div<ValidateProps>(
-  ({ $isHidden, $isDashboard }) => [
-    $isHidden === true
-      ? tw`hidden sm:flex`
-      : $isDashboard === true
-      ? tw`flex sm:hidden`
-      : tw`flex`,
-    tw`items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`,
-  ],
-)
-export const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
-const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`

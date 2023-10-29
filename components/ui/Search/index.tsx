@@ -1,7 +1,7 @@
-import { ContentInput, Input } from "@/components/Login"
 import { AiOutlineSearch } from "react-icons/ai"
 import tw from "twin.macro"
 import styled from "styled-components"
+import { ContentInput, Input } from "@/components/Login/component/Form"
 
 interface ValidateProps {
   $isHidden: boolean
