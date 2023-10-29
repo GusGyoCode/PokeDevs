@@ -17,8 +17,8 @@ export default function LoginComponent() {
           <Article>
             <Image
               src="/img/banner.jpeg"
-              width={500}
-              height={700}
+              width={224}
+              height={124}
               className="w-full h-96 md:h-full"
               alt="Image-sidebar"
             />

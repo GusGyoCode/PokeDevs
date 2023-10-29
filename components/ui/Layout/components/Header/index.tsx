@@ -8,7 +8,7 @@ import { ContentInput, Input } from "@/components/Login"
 import { AiOutlineSearch } from "react-icons/ai"
 import ButtonDark from "@/components/ui/DarMode/buttonDark"
 
-const Header = tw.header`w-full flex items-center justify-between p-4 border-b border-gray-300`
+const Header = tw.header`w-full flex items-center justify-between p-4 border-b border-gray-300 dark:border-[#2D2D2D] dark:bg-[#0A0A0A]`
 const ContentLogo = tw.div`flex items-center`
 const Button = tw.button`w-24 bg-blue-button py-2.5 px-4 rounded-xl flex justify-center hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800 text-white font-bold ml-2`
 
@@ -22,8 +22,8 @@ export default function HeaderComponent() {
       <ContentLogo>
         <Image
           src="/img/logo.png"
-          width={248}
-          height={247}
+          width={96}
+          height={27}
           className="w-24 mr-4"
           alt="Logo"
         />
@@ -40,8 +40,8 @@ export default function HeaderComponent() {
           onClick={() => {
             setView(!view)
           }}
-          width={248}
-          height={247}
+          width={32}
+          height={32}
           alt="avatar"
         />
         {view && (
