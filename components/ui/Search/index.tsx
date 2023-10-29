@@ -11,16 +11,20 @@ const Button = styled.button<ValidateProps>(({ $isHidden }) => [
   $isHidden ? tw`hidden sm:block` : tw`block sm:hidden`,
   tw`w-24 bg-blue-button py-2.5 px-4 rounded-xl hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800 text-white font-bold ml-2`,
 ])
-export default function Search({ hidden }: { hidden: boolean }) {
+export default function Search({
+  hidden,
+  dashboard,
+}: {
+  hidden: boolean
+  dashboard?: boolean
+}) {
   return (
     <>
-      <div className="flex w-full mb-2">
-        <ContentInput $isHidden={hidden}>
-          <AiOutlineSearch className="text-xl mr-2" />
-          <Input type="search" placeholder="Buscar Pokemon..." />
-        </ContentInput>
-        <Button $isHidden={hidden}>Buscar</Button>
-      </div>
+      <ContentInput $isHidden={hidden} $isDashboard={dashboard}>
+        <AiOutlineSearch className="text-xl mr-2" />
+        <Input type="search" placeholder="Buscar Pokemon..." />
+      </ContentInput>
+      <Button $isHidden={hidden}>Buscar</Button>
     </>
   )
 }
