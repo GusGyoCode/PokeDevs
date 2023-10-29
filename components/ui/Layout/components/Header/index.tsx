@@ -22,8 +22,8 @@ export default function HeaderComponent() {
       <ContentLogo>
         <Image
           src="/img/logo.png"
-          width={248}
-          height={247}
+          width={96}
+          height={27}
           className="w-24 mr-4"
           alt="Logo"
         />
@@ -40,8 +40,8 @@ export default function HeaderComponent() {
           onClick={() => {
             setView(!view)
           }}
-          width={248}
-          height={247}
+          width={32}
+          height={32}
           alt="avatar"
         />
         {view && (
