@@ -92,6 +92,7 @@ export default function LoginComponent() {
 
 interface ValidateProps {
   $isHidden?: boolean
+  $isDashboard?: boolean
 }
 const Content = tw.div`w-full lg:h-screen flex justify-center lg:items-center py-4 lg:py-4`
 const Main = tw.main`w-10/12 rounded-2xl lg:flex justify-center items-start h-5/6 overflow-hidden dark:border border-gray-border`
@@ -110,9 +111,15 @@ const ContentLogo = tw.div`w-full flex justify-center flex-wrap p-4 lg:p-16`
 const TextLogo = tw.h2`w-full text-center lg:text-3xl`
 const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
 const Label = tw.label`text-sm lg:text-lg`
-export const ContentInput = styled.div<ValidateProps>(({ $isHidden }) => [
-  $isHidden === true ? tw`hidden sm:flex` : tw`flex sm:hidden`,
-  tw`items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`,
-])
+export const ContentInput = styled.div<ValidateProps>(
+  ({ $isHidden, $isDashboard }) => [
+    $isHidden === true
+      ? tw`hidden sm:flex`
+      : $isDashboard === true
+      ? tw`flex sm:hidden`
+      : tw`flex`,
+    tw`items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`,
+  ],
+)
 export const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
 const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`
