@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "atomic-state": "^2.7.1",
     "http-react": "^3.0.6",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.0",
