@@ -5,6 +5,7 @@ import { FaLock } from "react-icons/fa"
 import { AiFillEye } from "react-icons/ai"
 import Head from "next/head"
 import tw from "twin.macro"
+import styled from "styled-components"
 
 export default function LoginComponent() {
   return (
@@ -41,7 +42,7 @@ export default function LoginComponent() {
               </BannerFooter>
             </ContentBanner>
           </Article>
-          <Article>
+          <Article $isHidden={true}>
             <ContentLogo>
               <Image
                 src="/img/logo.png"
@@ -89,9 +90,15 @@ export default function LoginComponent() {
   )
 }
 
+interface ValidateProps {
+  $isHidden?: boolean
+}
 const Content = tw.div`w-full lg:h-screen flex justify-center lg:items-center py-4 lg:py-4`
-const Main = tw.main`w-10/12 rounded-2xl lg:flex justify-center items-start h-5/6`
-const Article = tw.article`w-full lg:w-1/2 lg:h-full overflow-hidden relative rounded-2xl flex justify-center flex-wrap`
+const Main = tw.main`w-10/12 rounded-2xl lg:flex justify-center items-start h-5/6 overflow-hidden dark:border border-gray-border`
+const Article = styled.article<ValidateProps>(({ $isHidden }) => [
+  $isHidden === true && tw`px-2`,
+  tw`w-full lg:w-1/2 lg:h-full relative flex justify-center flex-wrap bg-gray-100 dark:bg-transparent`,
+])
 const ContentBanner = tw.div`w-full h-full top-0 left-0 absolute bg-black/50 flex justify-center text-white`
 const ContetBannerText = tw.div`w-8/12 mt-8 lg:mt-24`
 const BannerText = tw.h1`text-center text-xl sm:text-3xl lg:text-4xl 2xl:text-5xl`
@@ -103,6 +110,9 @@ const ContentLogo = tw.div`w-full flex justify-center flex-wrap p-4 lg:p-16`
 const TextLogo = tw.h2`w-full text-center lg:text-3xl`
 const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
 const Label = tw.label`text-sm lg:text-lg`
-export const ContentInput = tw.div`flex items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`
+export const ContentInput = styled.div<ValidateProps>(({ $isHidden }) => [
+  $isHidden === true ? tw`hidden sm:flex` : tw`flex sm:hidden`,
+  tw`items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`,
+])
 export const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
 const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`
