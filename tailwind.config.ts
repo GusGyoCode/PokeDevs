@@ -13,6 +13,10 @@ const config: Config = {
         blue: {
           button: "#0072FF",
         },
+        gray: {
+          bg: "#0A0A0A",
+          border: "#2D2D2D",
+        },
       },
       boxShadow: {
         "3xl": "0 25px 35px -12px rgb(0 0 0 / 0.08)",

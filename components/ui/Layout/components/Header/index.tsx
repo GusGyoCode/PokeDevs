@@ -8,7 +8,7 @@ import { ContentInput, Input } from "@/components/Login"
 import { AiOutlineSearch } from "react-icons/ai"
 import ButtonDark from "@/components/ui/DarMode/buttonDark"
 
-const Header = tw.header`w-full flex items-center justify-between p-4 border-b border-gray-300`
+const Header = tw.header`w-full flex items-center justify-between p-4 border-b border-gray-300 dark:border-[#2D2D2D] dark:bg-[#0A0A0A]`
 const ContentLogo = tw.div`flex items-center`
 const Button = tw.button`w-24 bg-blue-button py-2.5 px-4 rounded-xl flex justify-center hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800 text-white font-bold ml-2`
 
