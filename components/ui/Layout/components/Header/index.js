@@ -5,7 +5,7 @@ import { useTheme } from "next-themes"
 import MenuHeader from "./component/menu"
 import { useRouter } from "next/router"
 import ButtonDark from "@/components/ui/DarMode/buttonDark"
-import Search from "@/components/ui/Search"
+// import Search from "@/components/ui/Search"
 import { setAtom, storage, useValue } from "atomic-state"
 import { User, Token } from "@/components/Login/component/state"
 import Link from "next/link"
@@ -34,7 +34,7 @@ export default function HeaderComponent() {
             />
           </a>
         </Link>
-        <Search hidden={true} />
+        {/* <Search hidden={true} /> */}
       </ContentLogo>
       <div className="relative">
         <Image
