@@ -26,7 +26,7 @@ export default async function handlerLogin(
   )
   const { email, password } = req.body
   if (email !== "" && password !== "") {
-    const jsonDirectory = path.join(process.cwd(), "json")
+    const jsonDirectory = path.join(process.cwd(), "JSON")
     const fileContents = await fs.readFile(
       jsonDirectory + "/users.json",
       "utf8",
