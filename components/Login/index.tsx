@@ -11,6 +11,7 @@ import { Token, User } from "./component/state"
 import Alert from "../ui/Alert"
 import { useRouter } from "next/router"
 import PageLoading from "../ui/LoadingPage"
+import Progress from "../ui/Pogress"
 
 export default function LoginComponent() {
   const [info, setInfo] = useState({ email: "", password: "" })
@@ -108,7 +109,7 @@ export default function LoginComponent() {
       )}
       {loading ? (
         <Alert>
-          <h2>Cargando..</h2>
+          <Progress class="w-16 h-16 animate-spin" />
         </Alert>
       ) : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       error ? (
