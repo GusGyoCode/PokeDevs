@@ -60,7 +60,6 @@ export default function HeaderComponent() {
               <MenuHeader.Item
                 className="hover:bg-[#F4256D]/[.15] text-[#F4256D]"
                 click={() => {
-                  console.log("hola")
                   setAtom(User, null)
                   setAtom(Token, null)
                   // eslint-disable-next-line @typescript-eslint/no-floating-promises

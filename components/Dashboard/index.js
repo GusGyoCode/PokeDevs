@@ -8,12 +8,16 @@ import useFetch from "http-react"
 import LoadingCard from "../ui/LoadingCard"
 import tw from "twin.macro"
 import Button from "../ui/Button"
+import Alert from "../ui/Alert"
+import CardComponent from "../ui/Card/component/CardComponent"
+import { BsX } from "react-icons/bs"
 
 const ErrorComponent = tw.div`flex w-full items-center gap-4 text-red-500 flex-col`
 
 export default function DashBoardComponent() {
   const [page, setPage] = useState(1)
   const [error, setError] = useState(false)
+  const [viewModal, setViewModal] = useState(null)
   const { data, loading, reFetch } = useFetch(
     "https://pokeapi.co/api/v2/pokemon",
     {
@@ -59,7 +63,15 @@ export default function DashBoardComponent() {
                   ? new Array(10)
                       .fill(0)
                       .map((e, index) => <LoadingCard key={index} />)
-                  : data.results.map((e) => <Card key={e.name} url={e.url} />)}
+                  : data.results.map((e) => (
+                      <Card
+                        key={e.name}
+                        url={e.url}
+                        click={(e) => {
+                          setViewModal(e)
+                        }}
+                      />
+                    ))}
               </Grid>
               <div className="w-full flex justify-center mt-4">
                 <Pagination
@@ -75,6 +87,21 @@ export default function DashBoardComponent() {
           )
         }
       </div>
+      {Boolean(viewModal) && (
+        <Alert>
+          <div className="w-80 p-4 rounded-md bg-gray-300">
+            <div className="w-full flex justify-end mb-2">
+              <BsX
+                className="text-2xl cursor-pointer"
+                onClick={() => {
+                  setViewModal(null)
+                }}
+              />
+            </div>
+            <CardComponent data={viewModal} />
+          </div>
+        </Alert>
+      )}
     </Layout>
   )
 }

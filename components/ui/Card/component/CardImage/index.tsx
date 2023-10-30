@@ -4,9 +4,7 @@ import Button from "@/components/ui/Button"
 
 export default function CardImage({ url }: { url: string }) {
   const { data, loading, error, reFetch } = useFetch(url, {
-    onResolve(data) {
-      console.log(data)
-    },
+    id: `Image ${Math.random()}`,
   })
   return (
     <div className="flex items-center flex-col gap-2">

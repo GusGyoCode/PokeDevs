@@ -6,7 +6,7 @@ import CardError from "./component/CardError"
 
 const LoadingCard = tw.article`w-full h-[298px] bg-gray-300 animate-pulse rounded-md flex justify-center items-center`
 
-export default function Card({ url }: { url: string }) {
+export default function Card({ url, click }: { url: string; click: any }) {
   const { data, loading, error, reFetch } = useFetch(url)
   return (
     <>
@@ -19,7 +19,7 @@ export default function Card({ url }: { url: string }) {
         // eslint-disable-next-line @typescript-eslint/promise-function-async
         <CardError click={() => reFetch()} />
       ) : (
-        <CardComponent data={data} />
+        <CardComponent data={data} click={() => click(data)} />
       )}
     </>
   )
