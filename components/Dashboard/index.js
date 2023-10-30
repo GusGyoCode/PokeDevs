@@ -13,6 +13,7 @@ import CardComponent from "../ui/Card/component/CardComponent"
 import { BsX } from "react-icons/bs"
 
 const ErrorComponent = tw.div`flex w-full items-center gap-4 text-red-500 flex-col`
+const Modal = tw.div`w-80 p-4 rounded-md bg-gray-300 dark:bg-gray-900`
 
 export default function DashBoardComponent() {
   const [page, setPage] = useState(1)
@@ -89,8 +90,8 @@ export default function DashBoardComponent() {
       </div>
       {Boolean(viewModal) && (
         <Alert>
-          <div className="w-80 p-4 rounded-md bg-gray-300">
-            <div className="w-full flex justify-end mb-2">
+          <Modal>
+            <div className="flex w-full justify-end mb-2">
               <BsX
                 className="text-2xl cursor-pointer"
                 onClick={() => {
@@ -99,7 +100,7 @@ export default function DashBoardComponent() {
               />
             </div>
             <CardComponent data={viewModal} />
-          </div>
+          </Modal>
         </Alert>
       )}
     </Layout>
