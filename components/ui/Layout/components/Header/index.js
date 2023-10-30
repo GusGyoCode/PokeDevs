@@ -6,6 +6,8 @@ import MenuHeader from "./component/menu"
 import { useRouter } from "next/router"
 import ButtonDark from "@/components/ui/DarMode/buttonDark"
 import Search from "@/components/ui/Search"
+import { setAtom, storage, useValue } from "atomic-state"
+import { User, Token } from "@/components/Login/component/state"
 
 const Header = tw.header`w-full flex items-center justify-between p-4 border-b border-gray-300 dark:border-gray-border dark:bg-gray-bg`
 const ContentLogo = tw.div`flex items-center`
@@ -14,6 +16,8 @@ export default function HeaderComponent() {
   const [view, setView] = useState(false)
   const { theme, setTheme } = useTheme()
   const { push } = useRouter()
+
+  const userState = useValue(User)
 
   return (
     <Header>
@@ -43,18 +47,28 @@ export default function HeaderComponent() {
             <MenuHeader.Item
               click={() => {
                 setView(!view)
+                // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                push("/user")
               }}
             >
               <div className="flex flex-col font-bold">
                 Signed is as
-                <span>gustavo@gmail.com</span>
+                <span>{userState?.email}</span>
               </div>
             </MenuHeader.Item>
             <MenuHeader.Container>
               <MenuHeader.Item
                 className="hover:bg-[#F4256D]/[.15] text-[#F4256D]"
                 click={() => {
-                  void push("/login")
+                  console.log("hola")
+                  setAtom(User, null)
+                  setAtom(Token, null)
+                  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                  storage.remove("User")
+                  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                  storage.remove("Token")
+                  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                  push("/login")
                 }}
               >
                 Log Out

@@ -1,91 +1,132 @@
 import Image from "next/image"
 import Link from "next/link"
-import { BiSolidUser } from "react-icons/bi"
-import { FaLock } from "react-icons/fa"
-import { AiFillEye } from "react-icons/ai"
 import Head from "next/head"
 import tw from "twin.macro"
 import styled from "styled-components"
+import FormLogin from "./component/Form"
+import useFetch from "http-react"
+import { useEffect, useState } from "react"
+import { useDispatch, useStorage } from "atomic-state"
+import { Token, User } from "./component/state"
+import Alert from "../ui/Alert"
+import { useRouter } from "next/router"
+import PageLoading from "../ui/LoadingPage"
 
 export default function LoginComponent() {
+  const [info, setInfo] = useState({ email: "", password: "" })
+  const [error, setError] = useState(null)
+  const [loadingPage, setLoadingPage] = useState(true)
+  const setUser = useDispatch(User)
+  const setToken = useDispatch(Token)
+  const { push } = useRouter()
+  const { data, loading, reFetch, mutate } = useFetch("/api/auth/login", {
+    auto: false,
+    method: "POST",
+    body: info,
+    onResolve(data) {
+      setUser(data.user)
+      setToken(data.user.token)
+      mutate(null)
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      push("/dashboard")
+    },
+    onError(err: any) {
+      const { error } = err
+      setError(error)
+    },
+  })
+
+  const { Token: $Token } = useStorage()
+  useEffect(() => {
+    if ($Token as boolean) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      push("/dashboard")
+    }
+    setTimeout(() => {
+      setLoadingPage(false)
+    }, 1500)
+  }, [$Token])
+
   return (
     <>
       <Head>
         <title>PokeDevs | Inicio de sesion</title>
       </Head>
-      <Content>
-        <Main>
-          <Article>
-            <Image
-              src="/img/banner.jpeg"
-              width={224}
-              height={124}
-              className="w-full h-96 md:h-full"
-              alt="Image-sidebar"
-            />
-            <ContentBanner>
-              <ContetBannerText>
-                <BannerText>
-                  Proyecto para la Busqueda y listado de Pokemons proporcionado
-                  por medio de una API
-                </BannerText>
-              </ContetBannerText>
-              <BannerFooter>
-                <ContentBannerFooter>
-                  <BannerFooterText>
-                    Documentacion y API por PokeAPI
-                  </BannerFooterText>
-                  <Link href={"https://pokeapi.co/"} legacyBehavior>
-                    <BannerFooterLink>Visitala</BannerFooterLink>
-                  </Link>
-                </ContentBannerFooter>
-              </BannerFooter>
-            </ContentBanner>
-          </Article>
-          <Article $isHidden={true}>
-            <ContentLogo>
+      {loadingPage ? (
+        <PageLoading />
+      ) : (
+        <Content>
+          <Main>
+            <Article>
               <Image
-                src="/img/logo.png"
-                width={248}
-                height={247}
-                className="w-32 md:w-46 lg:w-56"
-                alt="Logo"
+                src="/img/banner.jpeg"
+                width={224}
+                height={124}
+                className="w-full h-96 md:h-full"
+                alt="Image-sidebar"
               />
-              <TextLogo>Conectate mas...!!</TextLogo>
-            </ContentLogo>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault()
-              }}
-            >
-              <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-                <Label>Usuario</Label>
-                <ContentInput>
-                  <BiSolidUser className="text-xl mr-2" />
-                  <Input
-                    type="text"
-                    placeholder="Usuario@ejemplo.com"
-                    name="email"
-                  />
-                </ContentInput>
-              </div>
-              <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-                <Label>Contraseña</Label>
-                <ContentInput>
-                  <FaLock className="text-xl mr-2" />
-                  <Input
-                    type="password"
-                    placeholder="**********"
-                    name="password"
-                  />
-                  <AiFillEye className="text-xl ml-2 cursor-pointer" />
-                </ContentInput>
-              </div>
-              <ButtonForm>Iniciar Sesion</ButtonForm>
-            </Form>
-          </Article>
-        </Main>
-      </Content>
+              <ContentBanner>
+                <ContetBannerText>
+                  <BannerText>
+                    Proyecto para la Busqueda y listado de Pokemons
+                    proporcionado por medio de una API
+                  </BannerText>
+                </ContetBannerText>
+                <BannerFooter>
+                  <ContentBannerFooter>
+                    <BannerFooterText>
+                      Documentacion y API por PokeAPI
+                    </BannerFooterText>
+                    <Link href={"https://pokeapi.co/"} legacyBehavior>
+                      <BannerFooterLink>Visitala</BannerFooterLink>
+                    </Link>
+                  </ContentBannerFooter>
+                </BannerFooter>
+              </ContentBanner>
+            </Article>
+            <Article $isHidden={true}>
+              <ContentLogo>
+                <Image
+                  src="/img/logo.png"
+                  width={248}
+                  height={247}
+                  className="w-32 md:w-46 lg:w-56"
+                  alt="Logo"
+                />
+                <TextLogo>Conectate mas...!!</TextLogo>
+                <FormLogin
+                  data={(e: any) => {
+                    setInfo(e)
+                    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+                    reFetch()
+                  }}
+                />
+              </ContentLogo>
+            </Article>
+          </Main>
+        </Content>
+      )}
+      {loading ? (
+        <Alert>
+          <h2>Cargando..</h2>
+        </Alert>
+      ) : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      error ? (
+        <Alert>
+          <Alert.Container
+            text={error}
+            click={() => {
+              setError(null)
+            }}
+          />
+        </Alert>
+      ) : (
+        Boolean(data) && (
+          <Alert>
+            <Alert.Container status={true} />
+          </Alert>
+        )
+      )}
     </>
   )
 }
@@ -109,17 +150,3 @@ const BannerFooterText = tw.span`sm:text-lg`
 const BannerFooterLink = tw.a`w-32 bg-blue-button py-2 px-4 rounded-xl flex justify-center hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800`
 const ContentLogo = tw.div`w-full flex justify-center flex-wrap p-4 lg:p-16`
 const TextLogo = tw.h2`w-full text-center lg:text-3xl`
-const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
-const Label = tw.label`text-sm lg:text-lg`
-export const ContentInput = styled.div<ValidateProps>(
-  ({ $isHidden, $isDashboard }) => [
-    $isHidden === true
-      ? tw`hidden sm:flex`
-      : $isDashboard === true
-      ? tw`flex sm:hidden`
-      : tw`flex`,
-    tw`items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border dark:border-none border-gray-300`,
-  ],
-)
-export const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
-const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`
