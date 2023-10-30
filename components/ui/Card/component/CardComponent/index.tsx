@@ -18,9 +18,18 @@ const Weight = styled.div(({ color }) => [
 ])
 const Name = tw.h3`font-bold text-xl text-orange-600`
 
-export default function CardComponent({ data }: { data: any }) {
+export default function CardComponent({
+  data,
+  click,
+}: {
+  data: any
+  click?: any
+}) {
   return (
-    <article className="w-full border border-gray-300 dark:border-gray-border hover:bg-gray-100 rounded-md hover:shadow-3xl flex flex-col p-4 gap-4 text-lg dark:bg-gray-bg cursor-pointer">
+    <article
+      className="w-full border border-gray-300 dark:border-gray-border hover:bg-gray-100 rounded-md hover:shadow-3xl flex flex-col p-4 gap-4 text-lg dark:bg-gray-bg cursor-pointer bg-white"
+      onClick={click}
+    >
       <CardImage url={data.forms[0].url} />
       <Title>
         <span className="text-green-500 text-sm">
