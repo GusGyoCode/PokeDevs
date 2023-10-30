@@ -1,34 +1,26 @@
-import ButtonDark from "@/components/ui/DarMode/buttonDark"
+import PageLoading from "@/components/ui/LoadingPage"
+import { storage } from "atomic-state"
 import Head from "next/head"
-import styled from "styled-components"
-import tw from "twin.macro"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 export default function Home() {
+  const { push } = useRouter()
+  useEffect(() => {
+    if (storage.get("Token") as boolean) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      push("/dashboard")
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      push("/login")
+    }
+  }, [])
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>PokeDevs | Redirreccion..</title>
       </Head>
-      <main className="flex h-screen items-center justify-center p-24 flex-col">
-        <StyledButton>In Style</StyledButton>
-        <br />
-        <TailwindButton>Styled with tailwind</TailwindButton>
-        <br />
-        <ButtonDark />
-      </main>
+      <PageLoading />
     </>
   )
 }
-
-const TailwindButton = tw.button`
-bg-amber-800 hover:bg-amber-500 text-white font-bold py-2 px-4 border border-white rounded
-`
-
-const StyledButton = styled.button`
-  background: red;
-  color: white;
-  font-size: 1em;
-  text-align: center;
-  padding: 0.25em 1em;
-  border: 2px solid white;
-`
