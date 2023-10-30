@@ -7,9 +7,9 @@ import Search from "../ui/Search"
 import useFetch from "http-react"
 import LoadingCard from "../ui/LoadingCard"
 import tw from "twin.macro"
+import Button from "../ui/Button"
 
 const ErrorComponent = tw.div`flex w-full items-center gap-4 text-red-500 flex-col`
-const Button = tw.button`w-32 bg-blue-button py-2 px-4 rounded-xl flex justify-center hover:bg-blue-500 transition-all duration-300 dark:bg-blue-button hover:dark:bg-blue-800 text-white`
 
 export default function DashBoardComponent() {
   const [page, setPage] = useState(1)
@@ -19,7 +19,7 @@ export default function DashBoardComponent() {
     {
       query: {
         limit: 10,
-        offset: page * 10,
+        offset: page === 1 ? 0 : (page - 1) * 10,
       },
       onError(err) {
         setError(err)
@@ -31,7 +31,7 @@ export default function DashBoardComponent() {
     return (
       <ErrorComponent>
         <h2 className="text-2xl">Error al cargar los pokemones</h2>
-        <Button onClick={click}>Recargar</Button>
+        <Button click={() => click}>Recargar</Button>
       </ErrorComponent>
     )
   }
@@ -65,7 +65,7 @@ export default function DashBoardComponent() {
                 <Pagination
                   currentPage={page}
                   // eslint-disable-next-line
-                  itemsPerPage={data ? parseInt(data.count / 10) : 1}
+                  itemsPerPage={data ? parseInt(data.count / 10) + 1 : 1}
                   onPageChange={(e) => {
                     setPage(e)
                   }}
