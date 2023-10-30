@@ -25,40 +25,46 @@ export default async function handlerLogin(
     "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
   )
   const { email, password } = req.body
-  if (email !== "" && password !== "") {
-    const jsonDirectory = path.join(process.cwd(), "JSON")
-    const fileContents = await fs.readFile(
-      jsonDirectory + "/users.json",
-      "utf8",
-    )
-    const user = JSON.parse(fileContents).data.filter(
-      (e: any) => e.email === email,
-    )
-    if (user.length > 0) {
-      if (user[0].password === password) {
-        const token = jwt.sign(
-          {
-            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
+  if (req.method === "POST") {
+    if (email !== "" && password !== "") {
+      const jsonDirectory = path.join(process.cwd(), "JSON")
+      const fileContents = await fs.readFile(
+        jsonDirectory + "/users.json",
+        "utf8",
+      )
+      const user = JSON.parse(fileContents).data.filter(
+        (e: any) => e.email === email,
+      )
+      if (user.length > 0) {
+        if (user[0].password === password) {
+          const token = jwt.sign(
+            {
+              exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
+              name: user[0].name,
+              lastName: user[0].lastName,
+              email: user[0].email,
+            },
+            "secret",
+          )
+          const newUser = {
             name: user[0].name,
             lastName: user[0].lastName,
             email: user[0].email,
-          },
-          "secret",
-        )
-        const newUser = {
-          name: user[0].name,
-          lastName: user[0].lastName,
-          email: user[0].email,
-          token,
+            token,
+          }
+          res.status(200).json({ user: newUser })
+        } else {
+          res.status(403).json({ error: "Contraseña invalida" })
         }
-        res.status(200).json({ user: newUser })
       } else {
-        res.status(403).json({ error: "Contraseña invalida" })
+        res.status(400).json({ error: "Usuario no encontrado" })
       }
     } else {
-      res.status(400).json({ error: "Usuario no encontrado" })
+      res
+        .status(400)
+        .json({ error: "No hay datos para Usuario o para Password" })
     }
   } else {
-    res.status(400).json({ error: "No hay datos para Usuario o para Password" })
+    res.status(500).json({ error: `El metodo ${req.method} es incorrecto` })
   }
 }
