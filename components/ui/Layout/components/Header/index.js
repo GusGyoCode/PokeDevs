@@ -8,6 +8,7 @@ import ButtonDark from "@/components/ui/DarMode/buttonDark"
 import Search from "@/components/ui/Search"
 import { setAtom, storage, useValue } from "atomic-state"
 import { User, Token } from "@/components/Login/component/state"
+import Link from "next/link"
 
 const Header = tw.header`w-full flex items-center justify-between p-4 border-b border-gray-300 dark:border-gray-border dark:bg-gray-bg`
 const ContentLogo = tw.div`flex items-center`
@@ -22,13 +23,17 @@ export default function HeaderComponent() {
   return (
     <Header>
       <ContentLogo>
-        <Image
-          src="/img/logo.png"
-          width={96}
-          height={27}
-          className="w-24 mr-4"
-          alt="Logo"
-        />
+        <Link href={"/dashboard"} legacyBehavior={true}>
+          <a>
+            <Image
+              src="/img/logo.png"
+              width={96}
+              height={27}
+              className="w-24 mr-4"
+              alt="Logo"
+            />
+          </a>
+        </Link>
         <Search hidden={true} />
       </ContentLogo>
       <div className="relative">
@@ -52,7 +57,7 @@ export default function HeaderComponent() {
               }}
             >
               <div className="flex flex-col font-bold">
-                Signed is as
+                Iniciado Sesion con
                 <span>{userState?.email}</span>
               </div>
             </MenuHeader.Item>

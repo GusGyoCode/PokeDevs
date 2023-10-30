@@ -9,12 +9,13 @@ interface ValidateProps {
   $isHidden?: boolean
   $isDashboard?: boolean
   $isValidate?: boolean
+  $isDisabled?: boolean
 }
 const ButtonForm = tw.button`w-full lg:w-10/12 bg-blue-button py-2 px-4 rounded-xl flex justify-center transition-all duration-300 text-white text-xl hover:dark:bg-blue-800 mb-10`
 const Form = tw.form`lg:w-10/12 flex flex-col gap-4 items-center w-full`
-const Label = tw.label`text-sm lg:text-lg`
+export const Label = tw.label`text-sm lg:text-lg`
 export const ContentInput = styled.div<ValidateProps>(
-  ({ $isHidden, $isDashboard, $isValidate }) => [
+  ({ $isHidden, $isDashboard, $isValidate, $isDisabled }) => [
     $isHidden === true
       ? tw`hidden sm:flex`
       : $isDashboard === true
@@ -23,10 +24,14 @@ export const ContentInput = styled.div<ValidateProps>(
     $isValidate === true
       ? tw`border-red-600`
       : tw`border-gray-300 dark:border-none`,
+    Boolean($isDisabled) && tw`cursor-not-allowed`,
     tw`items-center bg-white dark:bg-[#0A0A0A] rounded-xl p-2 border `,
   ],
 )
-export const Input = tw.input`lg:text-lg w-10/12 focus:outline-none bg-transparent`
+export const Input = styled.input<ValidateProps>(({ $isDisabled }) => [
+  Boolean($isDisabled) && tw`cursor-not-allowed`,
+  tw`lg:text-lg w-10/12 focus:outline-none bg-transparent`,
+])
 
 export default function FormLogin({ data }: { data: any }) {
   const [credentials, setCredentials] = useState({
@@ -64,7 +69,7 @@ export default function FormLogin({ data }: { data: any }) {
   return (
     <Form onSubmit={handleSubmit}>
       <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-        <Label>Usuario</Label>
+        <Label htmlFor="email">Usuario</Label>
         <ContentInput $isValidate={validateCredentials.email}>
           <BiSolidUser className="text-xl mr-2" />
           <Input
@@ -73,6 +78,7 @@ export default function FormLogin({ data }: { data: any }) {
             name="email"
             required
             onChange={handleCredentials}
+            id="email"
           />
         </ContentInput>
         {validateCredentials.email && (
@@ -80,7 +86,7 @@ export default function FormLogin({ data }: { data: any }) {
         )}
       </div>
       <div className="w-full lg:w-10/12 flex gap-2 flex-col">
-        <Label>Contraseña</Label>
+        <Label htmlFor="password">Contraseña</Label>
         <ContentInput $isValidate={validateCredentials.password}>
           <FaLock className="text-xl mr-2" />
           <Input
@@ -89,6 +95,7 @@ export default function FormLogin({ data }: { data: any }) {
             name="password"
             required
             onChange={handleCredentials}
+            id="password"
           />
           <AiFillEye
             className="text-xl ml-2 cursor-pointer"
