@@ -1,17 +1,26 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next"
+import path from "path"
+import { promises as fs } from "fs"
 
 interface Data {
-  name: string
+  error?: string
+  user?: any
+  data?: any
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
+  const jsonDirectory = path.join(process.cwd(), "json")
+  const fileContents = await fs.readFile(jsonDirectory + "/users.json", "utf8")
+  const { email, password } = req.body
   if (req.method === "POST") {
-    res.status(200).json({ name: "Paso a Post directo" })
+    res
+      .status(200)
+      .json({ user: { email, password }, data: JSON.parse(fileContents).data })
   } else {
-    res.status(200).json({ name: `el metodo es ${req.method}` })
+    res.status(200).json({ error: `el metodo es ${req.method}` })
   }
 }
