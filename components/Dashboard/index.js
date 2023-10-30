@@ -4,9 +4,21 @@ import Grid from "../ui/Grid"
 import Layout from "../ui/Layout"
 import Pagination from "../ui/Pagination"
 import Search from "../ui/Search"
+import useFetch from "http-react"
+import LoadingCard from "../ui/LoadingCard"
 
 export default function DashBoardComponent() {
   const [page, setPage] = useState(1)
+  const { data, loading } = useFetch("https://pokeapi.co/api/v2/pokemon", {
+    query: {
+      limit: 10,
+      offset: page * 10,
+    },
+    onResolve(data) {
+      console.log(data)
+    },
+  })
+
   return (
     <Layout title="PokerDevs | Inicio">
       <div className="flex w-full flex-wrap">
@@ -14,15 +26,18 @@ export default function DashBoardComponent() {
           <Search hidden={false} dashboard={true} />
         </div>
         <Grid>
-          {new Array(10).fill(0).map((e, index) => (
-            <Card key={index} />
-          ))}
+          {loading
+            ? new Array(10)
+                .fill(0)
+                .map((e, index) => <LoadingCard key={index} />)
+            : data.results.map((e) => <Card key={e.name} url={e.url} />)}
         </Grid>
         <div className="w-full flex justify-center mt-4">
           <Pagination
             currentPage={page}
-            itemsPerPage={100}
-            onPageChange={(e: any) => {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+            itemsPerPage={data ? parseInt(data.count / 10) : 1}
+            onPageChange={(e) => {
               setPage(e)
             }}
           />

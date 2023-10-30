@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "atomic-state": "^2.7.1",
+    "date-fns": "^2.30.0",
     "http-react": "^3.0.6",
     "jsonwebtoken": "^9.0.2",
     "next": "14.0.0",
