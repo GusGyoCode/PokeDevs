@@ -94,7 +94,7 @@ export default function LoginComponent() {
                   className="w-32 md:w-46 lg:w-56"
                   alt="Logo"
                 />
-                <TextLogo>Conectate mas...!!</TextLogo>
+                <TextLogo>Inicia Sesion</TextLogo>
                 <FormLogin
                   data={(e: any) => {
                     setInfo(e)
