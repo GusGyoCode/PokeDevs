@@ -44,6 +44,7 @@ export default function HeaderComponent() {
           width={32}
           height={32}
           alt="avatar"
+          id="avatar"
         />
         {view && (
           <MenuHeader>
@@ -73,7 +74,7 @@ export default function HeaderComponent() {
                   push("/login")
                 }}
               >
-                Log Out
+                Cerrar sesion
               </MenuHeader.Item>
             </MenuHeader.Container>
             <MenuHeader.Item
