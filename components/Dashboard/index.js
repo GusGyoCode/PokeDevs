@@ -44,9 +44,6 @@ export default function DashBoardComponent() {
   return (
     <Layout title="PokerDevs | Inicio">
       <div className="flex w-full flex-wrap">
-        {/* <div className="flex w-full mb-2 justify-between">
-          <Search hidden={false} dashboard={true} />
-        </div> */}
         {
           // eslint-disable-next-line
           error ? (
