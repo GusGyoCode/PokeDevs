@@ -5,7 +5,7 @@ import { AtomicState } from "atomic-state"
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class">
+    <ThemeProvider attribute="class" defaultTheme="ligth">
       <AtomicState>
         <Component {...pageProps} />
       </AtomicState>
